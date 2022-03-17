@@ -1,9 +1,10 @@
 const AWS = require('aws-sdk');
-const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 AWS.config.update({
     region: 'us-east-2',
 });
+
+const dynamodb = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 const params = {
     TableName: 'Thoughts',
