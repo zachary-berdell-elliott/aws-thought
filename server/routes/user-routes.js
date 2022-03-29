@@ -9,6 +9,8 @@ AWS.config.update(awsConfig);
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 const table = 'Thoughts';
 
+router.use(express.json());
+
 //Get all users
 router.get('/users', (req, res) => {
     const params = {
@@ -56,6 +58,7 @@ router.get('/users/:username', (req, res) => {
 
 //Add a user
 router.post('/users', (req, res) => {
+    console.log(req);
     const params = {
       TableName: table,
       Item: {
