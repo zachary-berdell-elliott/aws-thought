@@ -4,6 +4,7 @@ const ThoughtForm = () => {
   const [formState, setFormState] = useState({
     username: "",
     thought: "",
+    image: ""
   });
   const [characterCount, setCharacterCount] = useState(0);
   const fileInput = useRef(null);
@@ -13,6 +14,7 @@ const ThoughtForm = () => {
     if (event.target.value.length <= 280) {
       setFormState({ ...formState, [event.target.name]: event.target.value });
       setCharacterCount(event.target.value.length);
+      console.log(formState)
     }
   };
   
@@ -31,6 +33,7 @@ const ThoughtForm = () => {
         if (!res.ok) throw new Error(res.statusText);
         const postResponse = await res.json();
         setFormState({ ...formState, image: postResponse.Location });
+        console.log({...formState})
         return postResponse.Location;
       } catch (error) {
         console.log(error);
@@ -42,12 +45,12 @@ const ThoughtForm = () => {
   // submit form
   const handleFormSubmit = (event) => {
     event.preventDefault();
-
+    console.log(JSON.stringify(formState))
     const postData = async () => {
       const res = await fetch('/api/users', {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formState),
@@ -58,9 +61,9 @@ const ThoughtForm = () => {
     postData();
 
     // clear form value
-    setFormState({ username: "", thought: "" });
+    setFormState({ username: "", thought: "" , image: ""});
     setCharacterCount(0);
-    document.location.replace(window.location.href);
+    //document.location.replace(window.location.href);
   };
 
   return (
